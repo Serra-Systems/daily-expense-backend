@@ -1,1 +1,6 @@
-# daily-expense-backend
+# Stack
+
+ - java
+ - docker
+ - spring-boot
+
