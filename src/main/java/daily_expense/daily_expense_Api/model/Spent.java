@@ -1,5 +1,4 @@
 package daily_expense.daily_expense_Api.model;
-import daily_expense.daily_expense_Api.enums.Category;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,8 +15,8 @@ public class Spent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING) // O campo é armazenado como uma string correspondente ao valor da enum.
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name =  "category_id", referencedColumnName = "id")
     private Category category;
     @Column(nullable = false)
     private BigDecimal value;
