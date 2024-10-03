@@ -33,7 +33,6 @@ public class SpentServiceImpl implements SpentService {
     public Spent update(Long id, Spent spent) {
         Spent existingSpent = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Spent with id " + id + " not found."));
-        existingSpent.setCategory(spent.getCategory());
         existingSpent.setValue(spent.getValue());
         existingSpent.setDate(spent.getDate());
         return repository.save(existingSpent);
