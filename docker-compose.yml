@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  database:
+    image: postgres:14.5
+    container_name: my-postgres-container
+    restart: always
+    environment:
+      POSTGRES_DB: 'daily-expense-backend'
+      POSTGRES_USER: 'daily-expense-backend_user'
+      POSTGRES_PASSWORD: 'daily-expense-backend_pass'
+    ports:
+      - '5432:5432'
+    volumes:
+      - './volumes/postgres:/var/lib/postgresql/data'
+
+  springboot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-springboot-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/daily-expense-backend
+      SPRING_DATASOURCE_USERNAME: daily-expense-backend_user
+      SPRING_DATASOURCE_PASSWORD: daily-expense-backend_pass
+      SERVER_PORT: 8080
+    depends_on:
+      - database
